@@ -1,0 +1,169 @@
+<style>
+        /* Base styles */
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        /* Glassmorphism effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(14px) saturate(180%);
+            -webkit-backdrop-filter: blur(14px) saturate(180%);
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.5s ease, border-color 0.5s ease;
+        }
+        .glass:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 40px rgba(20, 184, 166, 0.4); /* Teal glow on hover */
+        }
+
+        /* Icon styling */
+        .icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            filter: invert(0%); /* Ensures icons are visible on dark background */
+        }
+
+        /* Scroll-to-top button */
+        #scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #84cc16; /* Lime-500 */
+            color: #000;
+            padding: 10px 14px;
+            border-radius: 100%;
+            display: none;
+            cursor: pointer;
+            z-index: 1000;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        #scroll-top:hover {
+            background: #a3e635; /* Lime-400 */
+            transform: scale(1.1);
+        }
+
+        /* Section title animation */
+        .section-title {
+            animation: fadeInDown 0.8s ease-out;
+        }
+        @keyframes fadeInDown {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Pulse background effect (e.g., for quote) */
+        .pulse-bg {
+            animation: pulseGlow 3s infinite ease-in-out;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 10px #84cc16; }
+            50% { box-shadow: 0 0 20px #a3e635; }
+        }
+
+        /* Light Mode Styles */
+        body.light-mode {
+            background-color: #f8f8f8; /* Lighter background */
+            color: #1a202c; /* Darker text */
+        }
+        body.light-mode header {
+            background-color: #e2e8f0; /* Lighter header */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        body.light-mode header h1,
+        body.light-mode header nav a {
+            color: #1a202c; /* Darker text for header */
+        }
+        body.light-mode header nav a:hover {
+            color: #4a5568; /* Even darker on hover */
+        }
+        body.light-mode .glass {
+            background: rgba(255, 255, 255, 0.8); /* More opaque white */
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        body.light-mode .glass:hover {
+            box-shadow: 0 6px 20px rgba(74, 85, 104, 0.3);
+        }
+        body.light-mode .text-lime-400 {
+            color: #4a5568; /* Darker primary color */
+        }
+        body.light-mode .text-lime-300 {
+            color: #2d3748; /* Even darker lime equivalent */
+        }
+        body.light-mode .text-gray-300,
+        body.light-mode .text-gray-200 {
+            color: #4a5568; /* Darker gray text */
+        }
+        body.light-mode #scroll-top {
+            background: #4a5568; /* Darker scroll top button */
+            color: #fff;
+        }
+        body.light-mode #scroll-top:hover {
+            background: #2d3748;
+        }
+        body.light-mode .bg-black { /* For contact form background */
+            background-color: #e2e8f0;
+        }
+        body.light-mode .bg-opacity-70 { /* For header background */
+            background-color: rgba(226, 232, 240, 0.9);
+        }
+        body.light-mode .border-lime-400 {
+            border-color: #4a5568;
+        }
+        body.light-mode .icon {
+            filter: invert(0%); /* Ensure icons are dark on light background */
+        }
+        body.light-mode .bg-lime-400 { /* For submit button */
+            background-color: #4a5568;
+            color: #fff;
+        }
+        body.light-mode .hover\:bg-lime-500:hover {
+            background-color: #2d3748;
+        }
+        body.light-mode .bg-gray-900 { /* For form inputs */
+            background-color: #edf2f7;
+            color: #1a202c;
+        }
+        body.light-mode .bg-gray-800 { /* For cookie modal */
+            background-color: #cbd5e0;
+            color: #1a202c;
+        }
+
+        /* Mobile Menu responsiveness */
+        @media (max-width: 767px) {
+            header .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            #mobile-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: rgba(0, 0, 0, 0.95);
+                padding-bottom: 1rem;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                transform: translateY(-100%); /* Start off-screen */
+                transition: transform 0.3s ease-out;
+                z-index: 40; /* Below header, above content */
+            }
+            #mobile-menu.active {
+                transform: translateY(0); /* Slide into view */
+            }
+            body.light-mode #mobile-menu {
+                background-color: rgba(226, 232, 240, 0.95);
+            }
+            body.light-mode #mobile-menu nav a {
+                color: #1a202c;
+            }
+        }
+    </style>

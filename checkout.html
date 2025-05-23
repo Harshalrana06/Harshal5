@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyleSphere - Checkout</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f0f0f;
+            color: #f1f5f9;
+            overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        header {
+            background-color: #0a0a0a;
+            color: #f1f5f9;
+        }
+        /* Styles for the message box */
+        .message-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #2d3748;
+            color: #f1f5f9;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            z-index: 3000;
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 90%;
+        }
+        .message-box.show {
+            display: flex;
+        }
+        .message-box button {
+            margin-top: 1rem;
+            background-color: #84cc16;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+        .message-box button:hover {
+            background-color: #65a30d;
+        }
+        /* Light Mode Styles */
+        body.light-mode {
+            background-color: #f8fafc;
+            color: #1a202c;
+        }
+        body.light-mode header {
+            background-color: #84cc16; /* Lime-500 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            color: #ffffff;
+        }
+        body.light-mode header nav a {
+            color: #ffffff;
+        }
+        body.light-mode header nav a:hover {
+            color: #d9f99d;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        body.light-mode header #view-cart-btn,
+        body.light-mode header #view-cart-btn-mobile {
+            color: #ffffff;
+        }
+        body.light-mode .hamburger-menu span {
+            background-color: #ffffff;
+        }
+        body.light-mode .mobile-nav {
+            background-color: #84cc16; /* Lime-500 */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        body.light-mode .mobile-nav nav a {
+            color: #ffffff;
+            background-color: #84cc16;
+        }
+        body.light-mode .mobile-nav nav a:hover {
+            background-color: #65a30d;
+        }
+        body.light-mode .hero-section {
+            background-color: #ffffff;
+            color: #1a202c;
+        }
+        body.light-mode .hero-section h1 {
+            color: #65a30d; /* Lime-600 */
+        }
+        body.light-mode .hero-section .bg-lime-500 {
+            background-color: #84cc16; /* Lime-500 */
+            color: white;
+        }
+        body.light-mode .hero-section .hover\:bg-lime-600:hover {
+            background-color: #65a30d; /* Lime-600 */
+        }
+        body.light-mode .product-card {
+            background-color: #ffffff;
+            color: #1a202c;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        body.light-mode .product-card:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+            background-color: #f8fafc;
+        }
+        body.light-mode .product-card .text-lime-500 {
+            color: #84cc16; /* Lime-500 */
+        }
+        body.light-mode .add-to-cart-btn {
+            background-color: #84cc16; /* Lime-500 */
+            color: #fff;
+        }
+        body.light-mode .add-to-cart-btn:hover {
+            background-color: #65a30d; /* Lime-600 */
+        }
+        body.light-mode .cart-sidebar {
+            background-color: #ffffff;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            color: #1a202c;
+        }
+        body.light-mode .cart-sidebar .border-gray-700 {
+            border-color: #e2e8f0;
+        }
+        body.light-mode .cart-sidebar .text-gray-300 {
+            color: #4a5568;
+        }
+        body.light-mode .cart-sidebar .text-gray-800 {
+            color: #1a202c;
+        }
+        body.light-mode .cart-sidebar .text-gray-400 {
+            color: #4a5568;
+        }
+        body.light-mode .cart-sidebar .text-gray-600 {
+            color: #4a5568;
+        }
+        body.light-mode .cart-sidebar .text-lime-400 {
+            color: #84cc16; /* Lime-500 */
+        }
+        body.light-mode .cart-items .bg-gray-50 {
+            background-color: #f0f4f8;
+        }
+        body.light-mode .remove-from-cart-btn {
+            background-color: #e53e3e;
+        }
+        body.light-mode .checkout-button {
+            background-color: #84cc16; /* Lime-500 */
+            color: #fff;
+        }
+        body.light-mode .checkout-button:hover {
+            background-color: #65a30d; /* Lime-600 */
+        }
+        body.light-mode .product-modal-content {
+            background-color: #ffffff;
+            color: #1a202c;
+        }
+        body.light-mode .product-modal-content .text-gray-300 {
+            color: #4a5568;
+        }
+        body.light-mode .product-modal-content .text-lime-400 {
+            color: #84cc16; /* Lime-500 */
+        }
+        body.light-mode .product-modal-content .border-gray-700 {
+            border-color: #cbd5e1;
+        }
+        body.light-mode .product-modal-content .focus\:ring-lime-500:focus {
+            --tw-ring-color: #84cc16;
+        }
+        body.light-mode .product-modal-content .focus\:border-lime-500:focus {
+            border-color: #84cc16;
+        }
+        body.light-mode .product-modal-content .bg-gray-800 {
+            background-color: #f0f4f8;
+            color: #1a202c;
+        }
+        body.light-mode .product-modal-content .bg-lime-500 {
+            background-color: #84cc16; /* Lime-500 */
+            color: #fff;
+        }
+        body.light-mode .product-modal-content .hover\:bg-lime-600:hover {
+            background-color: #65a30d; /* Lime-600 */
+        }
+        body.light-mode footer {
+            background-color: #e2e8f0;
+            color: #4a5568;
+        }
+        body.light-mode footer .text-lime-400 {
+            color: #84cc16; /* Lime-500 */
+        }
+        body.light-mode footer a.hover\:text-lime-400:hover {
+            color: #65a30d;
+        }
+        body.light-mode footer img {
+            filter: none;
+        }
+    </style>
+</head>
+<body>
+    <header class="shadow-md py-4 px-6 flex justify-between items-center sticky top-0 z-50">
+        <div class="text-2xl font-bold text-white">StyleSphere</div>
+        <nav class="hidden md:flex space-x-6 text-white font-medium">
+            <a href="shop.html" class="hover:text-lime-200 transition-colors">Shop</a>
+            <a href="#" class="hover:text-lime-200 transition-colors">About</a>
+            <a href="#" class="hover:text-lime-200 transition-colors">Contact</a>
+        </nav>
+        <div class="flex items-center md:hidden">
+            <button id="mobile-menu-toggle" class="focus:outline-none mr-4">
+                <div class="hamburger-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+            <button id="view-cart-btn-mobile" class="text-white hover:text-lime-200 focus:outline-none">Cart (<span id="cart-count-mobile">0</span>)</button>
+        </div>
+        <button id="theme-toggle" class="text-white text-xl focus:outline-none ml-4">🌓</button>
+    </header>
+
+    <div id="mobile-nav" class="mobile-nav hidden md:hidden">
+        <nav class="flex flex-col p-4 space-y-2">
+            <a href="shop.html" class="block py-2 text-white hover:bg-gray-700 rounded" onclick="closeMobileMenu()">Shop</a>
+            <a href="#" class="block py-2 text-white hover:bg-gray-700 rounded" onclick="closeMobileMenu()">About</a>
+            <a href="#" class="block py-2 text-white hover:bg-gray-700 rounded" onclick="closeMobileMenu()">Contact</a>
+        </nav>
+    </div>
+
+    <main class="container mx-auto py-12 px-6">
+        <h2 class="text-3xl font-bold text-center mb-10 text-lime-400">Checkout</h2>
+
+        <div class="bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+            <h3 class="text-2xl font-semibold text-white mb-4">Shipping Address</h3>
+            <form id="address-form" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="col-span-full">
+                    <label for="full-name" class="block text-gray-300 text-sm font-medium mb-1">Full Name</label>
+                    <input type="text" id="full-name" class="w-full p-2 rounded-md bg-gray-700 border border-gray-600 text-white focus:ring-lime-500 focus:border-lime-500" required>
+                </div>
+                <div>
+                    <label for="address-line1" class="block text-gray-300 text-sm font-medium mb-1">Address Line 1</label>
+                    <input type="text" id="address-line1" class="w-full p-2 rounded-md bg-gray-700 border border-gray-600 text-white focus:ring-lime-500 focus:border-lime-500" required>
+                </div>
+                <div>
+                    <label for="address-line2" class="block text-gray-300 text-sm font-medium mb-1">Address Line 2 (Optional)</label>
+                    <input type="text" id="address-line2" class="w-full p-2 rounded-md bg-gray-700 border border-gray-600 text-white focus:ring-lime-500 focus:border-lime-500">
+                </div>
+                <div>
+                    <label for="city" class="block text-gray-300 text-sm font-medium mb-1">City</label>
+                    <input type="text" id="city" class="w-full p-2 rounded-md bg-gray-700 border border-gray-600 text-white focus:ring-lime-500 focus:border-lime-500" required>
+                </div>
+                <div>
+                    <label for="state" class="block text-gray-300 text-sm font-medium mb-1">State</label>
+                    <input type="text" id="state" class="w-full p-2 rounded-md bg-gray-700 border border-gray-600 text-white focus:ring-lime-500 focus:border-lime-500" required>
+                </div>
+                <div>
+                    <label for="zip-code" class="block text-gray-300 text-sm font-medium mb-1">Zip Code</label>
+                    <input type="text" id="zip-code" class="w-full p-2 rounded-md bg-gray-700 border border-gray-600 text-white focus:ring-lime-500 focus:border-lime-500" required>
+                </div>
+            </form>
+        </div>
+
+        <div class="bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+            <h3 class="text-2xl font-semibold text-white mb-4">Payment Method</h3>
+            <div class="space-y-3">
+                <label class="flex items-center text-gray-300">
+                    <input type="radio" name="payment-method" value="cod" class="form-radio h-4 w-4 text-lime-500" checked>
+                    <span class="ml-2">Cash on Delivery (COD)</span>
+                </label>
+                <label class="flex items-center text-gray-300">
+                    <input type="radio" name="payment-method" value="card" class="form-radio h-4 w-4 text-lime-500">
+                    <span class="ml-2">Credit/Debit Card </span>
+                </label>
+                <label class="flex items-center text-gray-300">
+                    <input type="radio" name="payment-method" value="upi" class="form-radio h-4 w-4 text-lime-500">
+                    <span class="ml-2">UPI </span>
+                </label>
+            </div>
+        </div>
+
+        <div class="bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+            <h3 class="text-2xl font-semibold text-white mb-4">Order Summary</h3>
+            <div id="checkout-order-summary" class="space-y-2 text-gray-300">
+                </div>
+            <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-700">
+                <span class="text-xl font-semibold text-white">Total:</span>
+                <span id="checkout-total" class="text-xl font-bold text-lime-400">₹0.00</span>
+            </div>
+        </div>
+
+        <div class="flex justify-between items-center">
+            <button id="back-to-shop-btn" class="bg-gray-600 text-white font-bold py-3 px-6 rounded-md hover:bg-gray-700 transition duration-300">
+                Back to Shop
+            </button>
+            <button id="place-order-btn" class="bg-lime-500 text-white font-bold py-3 px-6 rounded-md hover:bg-lime-600 transition duration-300">
+                Place Order
+            </button>
+        </div>
+    </main>
+
+    <div id="message-box" class="message-box">
+        <p id="message-text" class="text-lg mb-4"></p>
+        <button id="message-box-ok-btn">OK</button>
+    </div>
+
+    <footer class="text-gray-400 py-8 px-6 text-center">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="font-bold text-lg mb-2 text-lime-400">StyleSphere</h3>
+                <p class="text-gray-400 text-sm">Your destination for trendy apparel.</p>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-2 text-lime-400">Quick Links</h3>
+                <ul class="space-y-1 text-gray-400 text-sm">
+                    <li><a href="#" class="hover:text-lime-400">About Us</a></li>
+                    <li><a href="#" class="hover:text-lime-400">Contact</a></li>
+                    <li><a href="#" class="hover:text-lime-400">Terms of Service</a></li>
+                    <li><a href="#" class="hover:text-lime-400">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-2 text-lime-400">Follow Us</h3>
+                <div class="flex justify-center space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-lime-400"><img src="https://placehold.co/24x24/2d3748/a3e635?text=FB" alt="Facebook" class="rounded-full"></a>
+                    <a href="#" class="text-gray-400 hover:text-lime-400"><img src="https://placehold.co/24x24/2d3748/a3e635?text=IG" alt="Instagram" class="rounded-full"></a>
+                    <a href="#" class="text-gray-400 hover:text-lime-400"><img src="https://placehold.co/24x24/2d3748/a3e635?text=TW" alt="Twitter" class="rounded-full"></a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-8 text-sm text-gray-500">
+            &copy; 2025 StyleSphere. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        let cart = []; // This will be populated from localStorage
+
+        // Get DOM elements
+        const checkoutOrderSummary = document.getElementById('checkout-order-summary');
+        const checkoutTotalSpan = document.getElementById('checkout-total');
+        const backToShopBtn = document.getElementById('back-to-shop-btn');
+        const placeOrderBtn = document.getElementById('place-order-btn');
+
+        // Address form elements
+        const fullNameInput = document.getElementById('full-name');
+        const addressLine1Input = document.getElementById('address-line1');
+        const addressLine2Input = document.getElementById('address-line2');
+        const cityInput = document.getElementById('city');
+        const stateInput = document.getElementById('state');
+        const zipCodeInput = document.getElementById('zip-code');
+
+        // Payment method radios
+        const paymentMethodRadios = document.querySelectorAll('input[name="payment-method"]');
+
+        // Message Box Elements
+        const messageBox = document.getElementById('message-box');
+        const messageText = document.getElementById('message-text');
+        const messageBoxOkBtn = document.getElementById('message-box-ok-btn');
+
+        // Theme Toggle Logic (copied from shop.html for consistency)
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        function setTheme(theme) {
+            if (theme === 'light') {
+                body.classList.add('light-mode');
+                themeToggleBtn.innerHTML = '☀️'; // Sun icon for light mode
+            } else {
+                body.classList.remove('light-mode');
+                themeToggleBtn.innerHTML = '🌙'; // Moon icon for dark mode
+            }
+            localStorage.setItem('theme', theme);
+        }
+
+        // Apply saved theme on load
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme);
+        } else {
+            setTheme('dark'); // Default to dark mode
+        }
+
+        // Toggle theme on button click
+        themeToggleBtn.addEventListener('click', () => {
+            if (body.classList.contains('light-mode')) {
+                setTheme('dark');
+            } else {
+                setTheme('light');
+            }
+        });
+
+        // Display a custom message box
+        function showMessageBox(message) {
+            messageText.textContent = message;
+            messageBox.classList.add('show');
+        }
+
+        // Hide the custom message box
+        function hideMessageBox() {
+            messageBox.classList.remove('show');
+        }
+
+        // Function to render order summary
+        function renderCheckoutSummary() {
+            checkoutOrderSummary.innerHTML = '';
+            let total = 0;
+            if (cart.length === 0) {
+                checkoutOrderSummary.innerHTML = '<p class="text-center text-gray-400">Your cart is empty.</p>';
+                placeOrderBtn.disabled = true;
+                placeOrderBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                placeOrderBtn.disabled = false;
+                placeOrderBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                cart.forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'flex justify-between items-center';
+                    itemDiv.innerHTML = `
+                        <span>${item.name} (${item.size}) x ${item.quantity}</span>
+                        <span>₹${(item.price * item.quantity).toFixed(2)}</span>
+                    `;
+                    checkoutOrderSummary.appendChild(itemDiv);
+                    total += item.price * item.quantity;
+                });
+            }
+            checkoutTotalSpan.textContent = `₹${total.toFixed(2)}`;
+        }
+
+        // Validate address form
+        function validateAddressForm() {
+            const requiredInputs = [fullNameInput, addressLine1Input, cityInput, stateInput, zipCodeInput];
+            for (const input of requiredInputs) {
+                if (!input.value.trim()) {
+                    showMessageBox(`Please fill in the "${input.previousElementSibling.textContent.replace(':', '')}" field.`);
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Place order function
+        function placeOrder() {
+            if (cart.length === 0) {
+                showMessageBox("Your cart is empty. Please add items before placing an order.");
+                return;
+            }
+
+            if (!validateAddressForm()) {
+                return; // Stop if address form is not valid
+            }
+
+            const selectedPaymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+
+            const orderDetails = {
+                items: cart,
+                total: parseFloat(checkoutTotalSpan.textContent.replace('₹', '')),
+                shippingAddress: {
+                    fullName: fullNameInput.value.trim(),
+                    address1: addressLine1Input.value.trim(),
+                    address2: addressLine2Input.value.trim(),
+                    city: cityInput.value.trim(),
+                    state: stateInput.value.trim(),
+                    zipCode: zipCodeInput.value.trim()
+                },
+                paymentMethod: selectedPaymentMethod,
+                timestamp: new Date().toISOString()
+            };
+
+            console.log("Order Placed:", orderDetails); // Log order details for demonstration
+
+            showMessageBox("Your order has been placed successfully! Thank you for shopping with StyleSphere.");
+
+            // Clear cart from localStorage and local variable after successful order
+            cart = [];
+            localStorage.removeItem('checkoutCart');
+            // Optionally, clear the address form
+            addressForm.reset();
+
+            // Redirect back to shop page after a short delay
+            setTimeout(() => {
+                window.location.href = 'shop.html';
+            }, 3000); // Redirect after 3 seconds
+        }
+
+        // --- Event Listeners ---
+        backToShopBtn.addEventListener('click', () => {
+            window.location.href = 'shop.html';
+        });
+
+        placeOrderBtn.addEventListener('click', placeOrder);
+        messageBoxOkBtn.addEventListener('click', hideMessageBox);
+
+        // On page load, retrieve cart data from localStorage
+        document.addEventListener('DOMContentLoaded', () => {
+            const storedCart = localStorage.getItem('checkoutCart');
+            if (storedCart) {
+                cart = JSON.parse(storedCart);
+            }
+            renderCheckoutSummary();
+        });
+    </script>
+</body>
+</html>

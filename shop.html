@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyleSphere - Trendy Tees</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f0f0f;
+            color: #f1f5f9;
+            overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        header {
+            background-color: #0a0a0a;
+            color: #f1f5f9;
+        }
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #2f3135;
+            color: #f1f5f9;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            background-color: #4a5568;
+        }
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            max-width: 380px;
+            height: 100%;
+            background-color: #3a424e;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            color: #f1f5f9;
+        }
+        .cart-sidebar.open {
+            transform: translateX(0);
+        }
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        .cart-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .hamburger-menu {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            cursor: pointer;
+        }
+        .hamburger-menu span {
+            display: block;
+            height: 2px;
+            background-color: #f1f5f9;
+            transition: all 0.3s ease-in-out;
+        }
+        .hamburger-menu.open span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .hamburger-menu.open span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger-menu.open span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        .mobile-nav {
+            position: fixed;
+            top: 64px;
+            left: 0;
+            width: 100%;
+            background-color: rgba(45, 55, 72, 0.95);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateY(-100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 900;
+        }
+        .mobile-nav.open {
+            transform: translateY(0);
+        }
+        .product-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        .product-modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .product-modal-content {
+            background-color: #2d3748;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            max-width: 700px;
+            width: 90%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            color: #f1f5f9;
+        }
+        @media (min-width: 768px) {
+            .product-modal-content {
+                flex-direction: row;
+            }
+        }
+
+        /* Hero Section Specifics */
+        .hero-section {
+            background-color: #1a202c;
+            color: #f1f5f9;
+            background-image: url('https://images.unsplash.com/photo-1483985988355-763728e19d06?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fHx8fHx8fA%3D%3D'); /* Added background image */
+            background-size: cover;
+            background-position: center;
+        }
+        .hero-section h1 {
+            color: #a3e635; /* Lime-400 */
+        }
+        .hero-section .bg-lime-500 {
+            background-color: #84cc16; /* Lime-500 */
+            color: white;
+        }
+        .hero-section .hover\:bg-lime-600:hover {
+            background-color: #65a30d; /* Lime-600 */
+        }
+
+        /* Product section specifics */
+        .text-lime-400 {
+            color: #a3e635; /* Lime-400 */
+        }
+        .product-card .text-lime-500 {
+            color: #84cc16; /* Lime-500 */
+        }
+        .add-to-cart-btn {
+            background-color: #84cc16; /* Lime-500 */
+            color: white;
+        }
+        .add-to-cart-btn:hover {
+            background-color: #65a30d; /* Lime-600 */
+        }
+
+        /* Cart sidebar specifics */
+        .cart-sidebar .border-gray-700 {
+            border-color: #4a5568;
+        }
+        .cart-sidebar .text-gray-300 {
+            color: #cbd5e1;
+        }
+        .cart-sidebar .text-gray-800 {
+            color: #f1f5f9;
+        }
+        .cart-sidebar .text-gray-400 {
+            color: #94a3b8;
+        }
+        .cart-sidebar .text-gray-600 {
+            color: #94a3b8;
+        }
+        .cart-sidebar .text-lime-400 {
+            color: #a3e635; /* Lime-400 */
+        }
+        .cart-items .bg-gray-50 {
+            background-color: #4a5568;
+        }
+        .remove-from-cart-btn {
+            background-color: #ef4444;
+        }
+        .checkout-button {
+            background-color: #84cc16; /* Lime-500 */
+            color: white;
+        }
+        .checkout-button:hover {
+            background-color: #65a30d; /* Lime-600 */
+        }
+
+        /* Product modal specifics */
+        .product-modal-content .text-gray-300 {
+            color: #cbd5e1;
+        }
+        .product-modal-content .text-lime-400 {
+            color: #a3e635; /* Lime-400 */
+        }
+        .product-modal-content .border-gray-700 {
+            border-color: #4a5568;
+        }
+        .product-modal-content .focus\:ring-lime-500:focus {
+            --tw-ring-color: #84cc16; /* Lime-500 */
+        }
+        .product-modal-content .focus\:border-lime-500:focus {
+            border-color: #84cc16; /* Lime-500 */
+        }
+        .product-modal-content .bg-gray-800 {
+            background-color: #4a5568;
+        }
+        .product-modal-content .bg-lime-500 {
+            background-color: #84cc16; /* Lime-500 */
+            color: white;
+        }
+        .product-modal-content .hover\:bg-lime-600:hover {
+            background-color: #65a30d; /* Lime-600 */
+        }
+
+        /* Footer specifics */
+        footer {
+            background-color: #2d3748;
+            color: #94a3b8;
+        }
+        footer .text-lime-400 {
+            color: #a3e635; /* Lime-400 */
+        }
+        footer a.hover\:text-lime-400:hover {
+            color: #a3e635; /* Lime-400 */
+        }
+
+        /* Light Mode Styles */
+        body.light-mode {
+            background-color: #f8fafc;
+            color: #1a202c;
+        }
+        body.light-mode header {
+            background-color: #84cc16; /* Lime-500 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            color: #ffffff;
+        }
+        body.light-mode header nav a {
+            color: #ffffff;
+        }
+        body.light-mode header nav a:hover {
+            color: #d9f99d;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        body.light-mode header #view-cart-btn,
+        body.light-mode header #view-cart-btn-mobile {
+            color: #ffffff;
+        }
+        body.light-mode .hamburger-menu span {
+            background-color: #ffffff;
+        }
+        body.light-mode .mobile-nav {
+            background-color: #84cc16; /* Lime-500 */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        body.light-mode .mobile-nav nav a {
+            color: #ffffff;
+            background-color: #84cc16;
+        }
+        body.light-mode .mobile-nav nav a:hover {
+            background-color: #65a30d;
+        }
+        body.light-mode .hero-section {
+            background-color: #ffffff;
+            color: #1a202c;
+            background-image: url('https://images.unsplash.com/photo-1483985988355-763728e19d06?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fHx8fHx8fA%3D%3D'); /* Added background image for light mode */
+            background-size: cover;
+            background-position: center;
+        }
+        body.light-mode .hero-section h1 {
+            color: #65a30d; /* Lime-600 */
+        }
+        body.light-mode .hero-section .bg-lime-500 {
+            background-color: #84cc16; /* Lime-500 */
+            color: white;
+        }
+        body.light-mode .hero-section .hover\:bg-lime-600:hover {
+            background-color: #65a30d; /* Lime-600 */
+        }
+        body.light-mode .product-card {
+            background-color: #ffffff;
+            color: #1a202c;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        body.light-mode .product-card:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+            background-color: #f8fafc;
+        }
+        body.light-mode .product-card .text-lime-500 {
+            color: #84cc16; /* Lime-500 */
+        }
+        body.light-mode .add-to-cart-btn {
+            background-color: #84cc16; /* Lime-500 */
+            color: #fff;
+        }
+        body.light-mode .add-to-cart-btn:hover {
+            background-color: #65a30d; /* Lime-600 */
+        }
+        body.light-mode .cart-sidebar {
+            background-color: #ffffff;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            color: #1a202c;
+        }
+        body.light-mode .cart-sidebar .border-gray-700 {
+            border-color: #e2e8f0;
+        }
+        body.light-mode .cart-sidebar .text-gray-300 {
+            color: #4a5568;
+        }
+        body.light-mode .cart-sidebar .text-gray-800 {
+            color: #1a202c;
+        }
+        body.light-mode .cart-sidebar .text-gray-400 {
+            color: #4a5568;
+        }
+        body.light-mode .cart-sidebar .text-gray-600 {
+            color: #4a5568;
+        }
+        body.light-mode .cart-sidebar .text-lime-400 {
+            color: #84cc16; /* Lime-500 */
+        }
+        body.light-mode .cart-items .bg-gray-50 {
+            background-color: #f0f4f8;
+        }
+        body.light-mode .remove-from-cart-btn {
+            background-color: #e53e3e;
+        }
+        body.light-mode .checkout-button {
+            background-color: #84cc16; /* Lime-500 */
+            color: #fff;
+        }
+        body.light-mode .checkout-button:hover {
+            background-color: #65a30d; /* Lime-600 */
+        }
+        body.light-mode .product-modal-content {
+            background-color: #ffffff;
+            color: #1a202c;
+        }
+        body.light-mode .product-modal-content .text-gray-300 {
+            color: #4a5568;
+        }
+        body.light-mode .product-modal-content .text-lime-400 {
+            color: #84cc16; /* Lime-500 */
+        }
+        body.light-mode .product-modal-content .border-gray-700 {
+            border-color: #cbd5e1;
+        }
+        body.light-mode .product-modal-content .focus\:ring-lime-500:focus {
+            --tw-ring-color: #84cc16;
+        }
+        body.light-mode .product-modal-content .focus\:border-lime-500:focus {
+            border-color: #84cc16;
+        }
+        body.light-mode .product-modal-content .bg-gray-800 {
+            background-color: #f0f4f8;
+            color: #1a202c;
+        }
+        body.light-mode .product-modal-content .bg-lime-500 {
+            background-color: #84cc16; /* Lime-500 */
+            color: #fff;
+        }
+        body.light-mode .product-modal-content .hover\:bg-lime-600:hover {
+            background-color: #65a30d; /* Lime-600 */
+        }
+        body.light-mode footer {
+            background-color: #e2e8f0;
+            color: #4a5568;
+        }
+        body.light-mode footer .text-lime-400 {
+            color: #84cc16; /* Lime-500 */
+        }
+        body.light-mode footer a.hover\:text-lime-400:hover {
+            color: #65a30d;
+        }
+        body.light-mode footer img {
+            filter: none;
+        }
+    </style>
+</head>
+<body>
+    <header class="shadow-md py-4 px-6 flex justify-between items-center sticky top-0 z-50">
+        <div class="text-2xl font-bold text-white">StyleSphere</div>
+        <nav class="hidden md:flex space-x-6 text-white font-medium">
+            <a href="#" class="hover:text-lime-200 transition-colors">Home</a>
+            <a href="#products" class="hover:text-lime-200 transition-colors">Products</a>
+            <a href="#about-us" class="hover:text-lime-200 transition-colors">About</a> <button id="view-cart-btn" class="text-white hover:text-lime-200 focus:outline-none">Cart (<span id="cart-count">0</span>)</button>
+        </nav>
+        <div class="flex items-center md:hidden">
+            <button id="mobile-menu-toggle" class="focus:outline-none mr-4">
+                <div class="hamburger-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+            <button id="view-cart-btn-mobile" class="text-white hover:text-lime-200 focus:outline-none">Cart (<span id="cart-count-mobile">0</span>)</button>
+        </div>
+        <button id="theme-toggle" class="text-white text-xl focus:outline-none ml-4">🌓</button>
+    </header>
+
+    <div id="mobile-nav" class="mobile-nav hidden md:hidden">
+        <nav class="flex flex-col p-4 space-y-2">
+            <a href="#" class="block py-2 text-white hover:bg-gray-700 rounded" onclick="closeMobileMenu()">Home</a>
+            <a href="#products" class="block py-2 text-white hover:bg-gray-700 rounded" onclick="closeMobileMenu()">Products</a>
+            <a href="#about-us" class="block py-2 text-white hover:bg-gray-700 rounded" onclick="closeMobileMenu()">About</a> </nav>
+    </div>
+
+    <section class="hero-section py-20 px-6 text-center">
+        <div class="container mx-auto">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Trendy Tees for Everyone</h1>
+            <p class="text-lg md:text-xl mb-8">Discover our latest collection of stylish and comfortable T-shirts.</p>
+            <a href="#products" class="bg-lime-500 text-white hover:bg-lime-600 font-bold py-3 px-8 rounded-full shadow-lg transition duration-300">Shop Now</a>
+        </div>
+    </section>
+
+    <section id="products" class="container mx-auto py-12 px-6">
+        <h2 class="text-3xl font-bold text-center mb-10 text-lime-400">Our Products</h2>
+        <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            </div>
+    </section>
+
+    <section id="about-us" class="container mx-auto py-12 px-6">
+        <h2 class="text-3xl font-bold text-center mb-10 text-lime-400">About StyleSphere</h2>
+        <div class="bg-gray-800 rounded-lg shadow-md p-8 text-center max-w-3xl mx-auto">
+            <p class="text-lg text-gray-300 mb-4">
+                Welcome to StyleSphere, your ultimate destination for trendy and high-quality T-shirts!
+                We believe that fashion should be accessible, comfortable, and a true reflection of your personality.
+            </p>
+            <p class="text-lg text-gray-300 mb-4">
+                At StyleSphere, we curate a diverse collection of tees, ranging from timeless classics to unique graphic prints,
+                all crafted with premium fabrics for exceptional comfort and durability. Our mission is to empower you
+                to express your individual style with confidence, one tee at a time.
+            </p>
+            <p class="text-lg text-gray-300">
+                Join the StyleSphere community and elevate your wardrobe with our fresh and fashionable designs.
+            </p>
+        </div>
+    </section>
+
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="p-6 border-b border-gray-700 flex justify-between items-center">
+            <h3 class="text-2xl font-bold text-white">Your Cart</h3>
+            <button id="close-cart-btn" class="text-gray-300 hover:text-white text-2xl focus:outline-none">&times;</button>
+        </div>
+        <div id="cart-items" class="flex-grow p-6 overflow-y-auto">
+            <p id="empty-cart-message" class="text-gray-400 text-center hidden">Your cart is empty.</p>
+        </div>
+        <div class="p-6 border-t border-gray-700">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-xl font-semibold text-white">Total:</span>
+                <span id="cart-total" class="text-xl font-bold text-lime-400">₹0.00</span>
+            </div>
+            <button id="proceed-to-checkout-btn" class="checkout-button w-full bg-lime-500 text-white font-bold py-3 rounded-md hover:bg-lime-600 transition duration-300">
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <div id="cart-overlay" class="cart-overlay"></div>
+
+    <div id="product-details-modal" class="product-modal">
+        <div class="product-modal-content">
+            <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-300 hover:text-white text-3xl focus:outline-none">&times;</button>
+            <div class="w-full md:w-1/2">
+                <img id="modal-product-image" src="" alt="Product Image" class="w-full h-48 object-cover rounded-md shadow-md">
+            </div>
+            <div class="w-full md:w-1/2 flex flex-col justify-between">
+                <div>
+                    <h3 id="modal-product-name" class="text-3xl font-bold text-white mb-2"></h3>
+                    <p id="modal-product-description" class="text-gray-300 mb-4"></p>
+                    <p class="text-2xl font-bold text-lime-400 mb-4" id="modal-product-price"></p>
+                    <div class="mb-4">
+                        <label for="modal-product-size" class="block text-gray-300 font-medium mb-2">Size:</label>
+                        <select id="modal-product-size" class="w-full p-2 border border-gray-700 rounded-md focus:ring-lime-500 focus:border-lime-500 bg-gray-800 text-white">
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="modal-add-to-cart-btn" class="w-full bg-lime-500 text-white font-bold py-3 rounded-md hover:bg-lime-600 transition duration-300 mt-4">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-gray-400 py-8 px-6 text-center">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="font-bold text-lg mb-2 text-lime-400">StyleSphere</h3>
+                <p class="text-gray-400 text-sm">Your destination for trendy apparel.</p>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-2 text-lime-400">Quick Links</h3>
+                <ul class="space-y-1 text-gray-400 text-sm">
+                    <li><a href="#" class="hover:text-lime-400">About Us</a></li>
+                    <li><a href="#" class="hover:text-lime-400">Contact</a></li>
+                    <li><a href="#" class="hover:text-lime-400">Terms of Service</a></li>
+                    <li><a href="#" class="hover:text-lime-400">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-2 text-lime-400">Follow Us</h3>
+                <div class="flex justify-center space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-lime-400"><img src="https://placehold.co/24x24/2d3748/a3e635?text=FB" alt="Facebook" class="rounded-full"></a>
+                    <a href="#" class="text-gray-400 hover:text-lime-400"><img src="https://placehold.co/24x24/2d3748/a3e635?text=IG" alt="Instagram" class="rounded-full"></a>
+                    <a href="#" class="text-gray-400 hover:text-lime-400"><img src="https://placehold.co/24x24/2d3748/a3e635?text=TW" alt="Twitter" class="rounded-full"></a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-8 text-sm text-gray-500">
+            &copy; 2025 StyleSphere. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Dummy Product Data
+        const products = [
+            { id: 1, name: "Classic White Tee", price: 999, image: "https://pronk.in/cdn/shop/files/PRONK00423.jpg?v=1722063628", description: "A timeless classic, perfect for any occasion. Made from 100% premium cotton for ultimate comfort." },
+            { id: 2, name: "Vintage Black Tee", price: 1299, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwWXit2t2E3swuqSHe3rC1-lsnnl4agcEhgA&s", description: "Achieve a retro look with this soft, distressed black T-shirt. Ideal for casual wear." },
+            { id: 3, name: "Graphic Print Tee", price: 1499, image: "https://media.boohooman.com/i/boohooman/bmm18006_black_xl?$product_image_main_mobile$&fmt=webp", description: "Express yourself with our unique graphic print T-shirt. Bold designs and vibrant colors." },
+            { id: 4, name: "Striped Summer Tee", price: 1499, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEz0IiFloLQZjt9dDLTkiHdhIm4uzuXmSedg&s", description: "Light and airy, this striped tee is perfect for summer days. Breathable fabric." },
+            { id: 5, name: "Sporty Performance Tee", price: 1499, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCsicX7SDmqL8F9gT_uRT7yqvMe9DDqzFEcg&s", description: "Designed for active lifestyles, this performance tee wicks away moisture to keep you dry." },
+            { id: 6, name: "Organic Cotton Tee", price: 1599, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9cnsBGx82PfnDrMHD4E8-TtMHyjLySC24mw&s", description: "Eco-friendly and incredibly soft, made from 100% organic cotton. Sustainable fashion choice." },
+            { id: 7, name: "V-Neck Comfort Tee", price: 1599, image: "https://m.media-amazon.com/images/I/71fpXkAEdCL._AC_UY1100_.jpg", description: "A comfortable V-neck tee that's perfect for layering or wearing on its own. Relaxed fit." },
+            { id: 8, name: "Long Sleeve Basic", price: 1799, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0ZjhLAC9Yac2K1ND0OX9uzsrF1PgHDfPcyw&s", description: "Versatile long sleeve basic tee for cooler weather. Soft and durable fabric." },
+            { id: 9, name: "Heather Grey Tee", price: 1199, image: "https://bananaclub.co.in/cdn/shop/files/HeatherGreyOversizedT-shirt_5.jpg?v=1738821246&width=1000", description: "A stylish heather grey tee, blending comfort with a modern aesthetic. Great for everyday wear." },
+            { id: 10, name: "Pocket Tee", price: 1399, image: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRM8MLW82r6xoef9IGSyxyiFxUV_uPswn4ElOJrR52aZYIqmUftmN7ZyHJVxK6-19lsjD9pb_8AZdVqrNnx3IcA02j3YakQwQhhWkKGESRtlSgAT3rvkUR7", description: "Classic tee with a subtle chest pocket, adding a touch of utility and style. Made from soft cotton." },
+            { id: 11, name: "Tie-Dye Tee", price: 1899, image: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcR48Me9ArvY7E_y-ZkQks01vMAN7_clcs80DdvGpP7pI-vNIN9MUdyhf4uNVRV1zQWQ6a29XW0Ec5CmQ3Z7WVqsRj-7EOVkpflgDN9i6ZzA", description: "Vibrant tie-dye patterns for a bold and unique look. Each tee is one-of-a-kind." },
+            { id: 12, name: "Muscle Fit Tee", price: 1699, image: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQC10J32zcmB89AXEkOMCjR3OKlhTwxwexutITYyvb_lbkiJsS-vG2HNZ9sx8Eglg6yyMSHXkOWWZLUqAhAW-9itK-q2-kCxLx8PEH59LQyhvaj-v2Ub9hsVQ", description: "Designed to accentuate your physique, offering a snug and comfortable fit. Ideal for gym or casual outings." }
+        ];
+
+        let cart = []; // Stores { productId, quantity, size }
+
+        // Get DOM elements
+        const productList = document.getElementById('product-list');
+        const cartSidebar = document.getElementById('cart-sidebar');
+        const cartOverlay = document.getElementById('cart-overlay');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartTotalSpan = document.getElementById('cart-total');
+        const cartCountSpan = document.getElementById('cart-count');
+        const cartCountMobileSpan = document.getElementById('cart-count-mobile');
+        const viewCartBtn = document.getElementById('view-cart-btn');
+        const viewCartBtnMobile = document.getElementById('view-cart-btn-mobile');
+        const closeCartBtn = document.getElementById('close-cart-btn');
+        const emptyCartMessage = document.getElementById('empty-cart-message');
+        const proceedToCheckoutBtn = document.getElementById('proceed-to-checkout-btn');
+
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+
+        const productDetailsModal = document.getElementById('product-details-modal');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const modalProductImage = document.getElementById('modal-product-image');
+        const modalProductName = document.getElementById('modal-product-name');
+        const modalProductDescription = document.getElementById('modal-product-description');
+        const modalProductPrice = document.getElementById('modal-product-price');
+        const modalProductSize = document.getElementById('modal-product-size');
+        const modalAddToCartBtn = document.getElementById('modal-add-to-cart-btn');
+
+        let currentProductInModal = null; // To store the product object currently in the modal
+
+        // --- Functions ---
+
+        // Render products on the page
+        function renderProducts() {
+            productList.innerHTML = ''; // Clear existing products
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card rounded-lg shadow-md p-4 flex flex-col items-center cursor-pointer';
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover rounded-md mb-4">
+                    <h3 class="text-lg font-semibold text-white mb-1">${product.name}</h3>
+                    <p class="text-lime-500 font-bold mb-4">₹${product.price.toFixed(2)}</p>
+                    <button class="add-to-cart-btn py-2 px-4 rounded-md hover:bg-lime-600 transition duration-300 w-full" data-product-id="${product.id}">Add to Cart</button>
+                `;
+                productList.appendChild(productCard);
+
+                // Add event listener to open modal on card click (excluding the button)
+                productCard.addEventListener('click', (event) => {
+                    if (!event.target.classList.contains('add-to-cart-btn')) {
+                        openProductModal(product.id);
+                    }
+                });
+            });
+
+            // Add event listeners for "Add to Cart" buttons
+            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const productId = parseInt(event.target.dataset.productId);
+                    addToCart(productId);
+                });
+            });
+        }
+
+        // Add item to cart
+        function addToCart(productId, size = 'M') {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                // Check if item with same ID and size already exists in cart
+                const existingItem = cart.find(item => item.productId === productId && item.size === size);
+
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    cart.push({
+                        productId: product.id,
+                        name: product.name,
+                        price: product.price,
+                        image: product.image,
+                        size: size,
+                        quantity: 1
+                    });
+                }
+                updateCartDisplay();
+                openCartSidebar(); // Open cart sidebar when item is added
+            }
+        }
+
+        // Remove item from cart
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartDisplay();
+        }
+
+        // Update cart display in sidebar
+        function updateCartDisplay() {
+            cartItemsContainer.innerHTML = ''; // Clear existing items
+            let total = 0;
+
+            if (cart.length === 0) {
+                emptyCartMessage.classList.remove('hidden');
+                proceedToCheckoutBtn.disabled = true; // Disable checkout if cart is empty
+                proceedToCheckoutBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                emptyCartMessage.classList.add('hidden');
+                proceedToCheckoutBtn.disabled = false; // Enable checkout if cart has items
+                proceedToCheckoutBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+
+                cart.forEach((item, index) => {
+                    const cartItemDiv = document.createElement('div');
+                    cartItemDiv.className = 'flex items-center justify-between bg-gray-50 p-3 rounded-md mb-3 shadow-sm';
+                    cartItemDiv.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-md mr-4">
+                        <div class="flex-grow">
+                            <h4 class="font-semibold text-white">${item.name} (${item.size})</h4>
+                            <p class="text-sm text-gray-400">Qty: ${item.quantity} x ₹${item.price.toFixed(2)}</p>
+                            <p class="text-lime-500 font-bold">₹${(item.price * item.quantity).toFixed(2)}</p>
+                        </div>
+                        <button class="remove-from-cart-btn bg-red-500 text-white p-1 rounded-full text-xs w-6 h-6 flex items-center justify-center hover:bg-red-600 transition duration-300" data-index="${index}">&times;</button>
+                    `;
+                    cartItemsContainer.appendChild(cartItemDiv);
+                    total += item.price * item.quantity;
+                });
+            }
+
+            cartTotalSpan.textContent = `₹${total.toFixed(2)}`;
+            cartCountSpan.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCountMobileSpan.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+            // Add event listeners for "Remove" buttons
+            document.querySelectorAll('.remove-from-cart-btn').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const index = parseInt(event.target.dataset.index);
+                    removeFromCart(index);
+                });
+            });
+        }
+
+        // Open/Close Cart Sidebar
+        function openCartSidebar() {
+            cartSidebar.classList.add('open');
+            cartOverlay.classList.add('open');
+        }
+
+        function closeCartSidebar() {
+            cartSidebar.classList.remove('open');
+            cartOverlay.classList.remove('open');
+        }
+
+        // Open Product Details Modal
+        function openProductModal(productId) {
+            currentProductInModal = products.find(p => p.id === productId);
+            if (currentProductInModal) {
+                modalProductImage.src = currentProductInModal.image;
+                modalProductImage.alt = currentProductInModal.name;
+                modalProductName.textContent = currentProductInModal.name;
+                modalProductDescription.textContent = currentProductInModal.description;
+                modalProductPrice.textContent = `₹${currentProductInModal.price.toFixed(2)}`;
+                modalProductSize.value = 'M'; // Default size
+
+                productDetailsModal.classList.add('open');
+            }
+        }
+
+        // Close Product Details Modal
+        function closeProductModal() {
+            productDetailsModal.classList.remove('open');
+            currentProductInModal = null;
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            mobileNav.classList.toggle('hidden');
+            mobileNav.classList.toggle('open');
+            mobileMenuToggle.classList.toggle('open');
+        }
+
+        function closeMobileMenu() {
+            mobileNav.classList.add('hidden');
+            mobileNav.classList.remove('open');
+            mobileMenuToggle.classList.remove('open');
+        }
+
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        function setTheme(theme) {
+            if (theme === 'light') {
+                body.classList.add('light-mode');
+                themeToggleBtn.innerHTML = '☀️'; // Sun icon for light mode
+            } else {
+                body.classList.remove('light-mode');
+                themeToggleBtn.innerHTML = '🌙'; // Moon icon for dark mode
+            }
+            localStorage.setItem('theme', theme);
+        }
+
+        // Apply saved theme on load
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme);
+        } else {
+            setTheme('dark'); // Default to dark mode
+        }
+
+        // Toggle theme on button click
+        themeToggleBtn.addEventListener('click', () => {
+            if (body.classList.contains('light-mode')) {
+                setTheme('dark');
+            } else {
+                setTheme('light');
+            }
+        });
+
+        // --- Event Listeners ---
+        viewCartBtn.addEventListener('click', openCartSidebar);
+        viewCartBtnMobile.addEventListener('click', openCartSidebar);
+        closeCartBtn.addEventListener('click', closeCartSidebar);
+        cartOverlay.addEventListener('click', closeCartSidebar);
+
+        // Modified: Redirect to checkout.html and pass cart data
+        proceedToCheckoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                // Using a custom message box instead of alert
+                const messageBox = document.createElement('div');
+                messageBox.className = 'message-box';
+                messageBox.innerHTML = `
+                    <p id="message-text" class="text-lg mb-4">Your cart is empty. Please add items before proceeding to checkout.</p>
+                    <button id="message-box-ok-btn">OK</button>
+                `;
+                document.body.appendChild(messageBox);
+                messageBox.classList.add('show');
+                document.getElementById('message-box-ok-btn').onclick = () => {
+                    messageBox.classList.remove('show');
+                    document.body.removeChild(messageBox);
+                };
+                return;
+            }
+            localStorage.setItem('checkoutCart', JSON.stringify(cart));
+            window.location.href = 'checkout.html';
+        });
+
+        mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+
+        closeModalBtn.addEventListener('click', closeProductModal);
+        productDetailsModal.addEventListener('click', (event) => {
+            if (event.target === productDetailsModal) {
+                closeProductModal();
+            }
+        });
+
+        modalAddToCartBtn.addEventListener('click', () => {
+            if (currentProductInModal) {
+                const selectedSize = modalProductSize.value;
+                addToCart(currentProductInModal.id, selectedSize);
+                closeProductModal(); // Close modal after adding to cart
+            }
+        });
+
+        // Initial render
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            updateCartDisplay();
+        });
+    </script>
+</body>
+</html>

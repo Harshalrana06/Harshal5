@@ -1,0 +1,393 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Harshal Rana - Portfolio</title>
+    <meta name="description" content="Harshal Rana's personal portfolio showcasing his engineering skills, achievements, hobbies, and aspirations. Aspiring engineer passionate about digital experiences." />
+    <meta name="keywords" content="Harshal Rana, portfolio, engineer, web development, AI, machine learning, robotics, computer science, hackathon, Mumbai, India" />
+    <link rel="icon" href="favicon.ico" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.10.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      // gtag('config', 'G-YOUR_MEASUREMENT_ID'); // This will be called conditionally after cookie consent
+    </script>
+</head>
+<body>
+    <header class="py-6 bg-black bg-opacity-70 sticky top-0 z-50 shadow-md animate-fade-in">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-lime-400 tracking-wide">Harshal Rana</h1>
+            <nav class="hidden md:flex space-x-6 text-gray-300 font-medium">
+                <a href="#about" class="hover:text-lime-400 transition-colors">About</a>
+                <a href="#achievements" class="hover:text-lime-400 transition-colors">Achievements</a>
+                <a href="#hobbies" class="hover:text-lime-400 transition-colors">Hobbies</a>
+                <a href="#role-model" class="hover:text-lime-400 transition-colors">Role Model</a>
+                <a href="#goals" class="hover:text-lime-400 transition-colors">Dreams</a>
+                <a href="shop.html" class="hover:text-lime-400 transition-colors">Shop</a>
+                <a href="#contact-section" class="hover:text-lime-400 transition-colors">Contact</a>
+            </nav>
+            <div class="flex items-center">
+                <button id="theme-toggle" class="text-lime-400 text-xl focus:outline-none ml-4">🌓</button>
+                <button id="menu-toggle" class="md:hidden text-lime-400 text-3xl focus:outline-none ml-4">☰</button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden px-4 pt-4 pb-2">
+            <nav class="flex flex-col space-y-2 text-center text-gray-300 font-medium">
+                <a href="#about" class="block py-2 hover:text-lime-400 transition-colors">About</a>
+                <a href="#achievements" class="block py-2 hover:text-lime-400 transition-colors">Achievements</a>
+                <a href="#hobbies" class="block py-2 hover:text-lime-400 transition-colors">Hobbies</a>
+                <a href="#role-model" class="block py-2 hover:text-lime-400 transition-colors">Role Model</a>
+                <a href="#goals" class="block py-2 hover:text-lime-400 transition-colors">Dreams</a>
+                <a href="#testimonials" class="block py-2 hover:text-lime-400 transition-colors">Testimonials</a>
+                <a href="shop.html" class="block py-2 hover:text-lime-400 transition-colors">Shop</a>
+                <a href="#contact-section" class="block py-2 hover:text-lime-400 transition-colors">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-12 space-y-24">
+
+        <section id="about" class="text-center" data-aos="fade-up">
+            <img src="images/img3.jpg" alt="Harshal Rana profile picture" class="mx-auto w-36 h-48 border-4 border-lime-400 object-cover shadow-xl" />
+            <h2 class="text-4xl sm:text-5xl font-bold mt-6 mb-2 text-lime-400 section-title">Hello, I'm Harshal Rana</h2>
+            <p class="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">I am an aspiring engineer driven by a deep passion for creating impactful digital experiences that blend innovation, functionality, and user-centric design. My goal is to leverage technology to solve real-world problems and build solutions that make a meaningful difference in people's lives.</p>
+        </section>
+
+        <section id="achievements" data-aos="zoom-in-up">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-lime-400 section-title">Achievements</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+                <div class="glass p-6 text-center">
+                    <h3 class="text-xl font-semibold text-lime-300 mb-2">Certifications</h3>
+                    <p>• Cyber Security<br/>• Data Networking<br/>• UNIX</p>
+                </div>
+                <div class="glass p-6 text-center">
+                    <h3 class="text-xl font-semibold text-lime-300 mb-2">Events</h3>
+                    <p>• VCET Hackathon<br/>• SJCEM Code Relay</p>
+                </div>
+                <div class="glass p-6 text-center">
+                    <h3 class="text-xl font-semibold text-lime-300 mb-2">Projects</h3>
+                    <p>Pick and Drop Robot using ESP32</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="hobbies" class="text-left" data-aos="fade-right">
+            <h2 class="text-3xl sm:text-4xl font-semibold text-lime-400 section-title">My Hobbies</h2>
+            <p class="text-lg text-gray-200 mt-4">• Learning new tech<br/>• Contributing to Open Source Projects<br/>• Exploring AI & Machine Learning<br/>• Reading biographies</p>
+        </section>
+
+        <section id="role-model" class="text-left" data-aos="fade-left">
+            <h2 class="text-3xl sm:text-4xl font-semibold text-lime-400 section-title">My Role Model</h2>
+            <p class="text-lg text-gray-200 mt-4">I admire <strong class="text-lime-300">Sam Altman</strong> He is the CEO of OpenAI, where he leads efforts in developing cutting-edge artificial intelligence technologies like ChatGPT. Before this, he was the president of Y Combinator and co-founded Loopt, a location-based social networking app. Known for his visionary leadership, Altman is a prominent voice in tech, advocating for the ethical and responsible development of artificial general intelligence.</p>
+        </section>
+
+        <section id="goals" class="text-left" data-aos="fade-up">
+            <h2 class="text-3xl sm:text-4xl font-semibold text-lime-400 section-title">My Dreams</h2>
+            <p class="text-lg text-gray-200 mt-4">my dreams revolve around creating technology that truly transforms lives and drives humanity forward. I aspire to design innovative solutions that solve real-world problems—whether through smarter infrastructure, sustainable energy, advanced robotics, or intuitive software. My ultimate goal is to leave a lasting impact by building systems and tools that are not only efficient and intelligent but also ethical and accessible to all.</p>
+        </section>
+        <section id="contact-section" class="py-16 px-4" data-aos="fade-up">
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+
+                <div>
+                    <h2 class="text-3xl sm:text-4xl font-semibold mb-6 text-lime-400">Send Me a Message</h2>
+                    <form
+                        action="mailto:harshalrana845@gmail.com"
+                        method="POST"
+                        enctype="text/plain"
+                        class="w-full bg-black bg-opacity-40 p-6 rounded-lg border border-lime-400"
+                    >
+                        <div class="mb-4">
+                            <label for="name" class="block mb-2 text-gray-200 font-medium text-base sm:text-lg">Name</label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="Name"
+                                required
+                                class="w-full px-4 py-2 rounded-md bg-gray-900 text-white border border-lime-400 focus:outline-none focus:ring-2 focus:ring-lime-300 text-base sm:text-lg"
+                            />
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block mb-2 text-gray-200 font-medium text-base sm:text-lg">Email</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="Email"
+                                required
+                                class="w-full px-4 py-2 rounded-md bg-gray-900 text-white border border-lime-400 focus:outline-none focus:ring-2 focus:ring-lime-300 text-base sm:text-lg"
+                            />
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block mb-2 text-gray-200 font-medium text-base sm:text-lg">Message</label>
+                            <textarea
+                                id="message"
+                                name="Message"
+                                rows="5"
+                                required
+                                class="w-full px-4 py-2 rounded-md bg-gray-900 text-white border border-lime-400 focus:outline-none focus:ring-2 focus:ring-lime-300 text-base sm:text-lg"
+                            ></textarea>
+                        </div>
+                        <button
+                            type="submit"
+                            class="bg-lime-400 hover:bg-lime-500 text-black font-semibold py-2 px-6 rounded-md transition-all duration-200 text-base sm:text-lg"
+                        >
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+
+                <div class="space-y-6 text-center">
+                    <h2 class="text-3xl sm:text-4xl font-semibold text-lime-400">Connect with Me</h2>
+
+                    <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
+                        <a href="tel:+918149467994" title="Call Harshal" class="hover:scale-110 transition-transform flex items-center flex-col text-gray-300 text-sm sm:text-base">
+                            <img src="https://img.icons8.com/ios-filled/50/84cc16/phone.png" alt="Phone icon" class="icon" />
+                            <span class="mt-1">Call</span>
+                        </a>
+                        <a href="mailto:harshalrana845@gmail.com" title="Email Harshal" class="hover:scale-110 transition-transform flex items-center flex-col text-gray-300 text-sm sm:text-base">
+                            <img src="https://img.icons8.com/ios-filled/50/84cc16/new-post.png" alt="Email icon" class="icon" />
+                            <span class="mt-1">Email</span>
+                        </a>
+                        <a href="https://wa.me/918149467994" target="_blank" rel="noopener noreferrer" title="WhatsApp Harshal" class="hover:scale-110 transition-transform flex items-center flex-col text-gray-300 text-sm sm:text-base">
+                            <img src="https://img.icons8.com/ios-filled/50/84cc16/whatsapp.png" alt="WhatsApp icon" class="icon" />
+                            <span class="mt-1">WhatsApp</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/harshal-rana-78b076297/" target="_blank" rel="noopener noreferrer" title="Harshal Rana on LinkedIn" class="hover:scale-110 transition-transform flex items-center flex-col text-gray-300 text-sm sm:text-base">
+                            <img src="https://img.icons8.com/ios-filled/50/84cc16/linkedin.png" alt="LinkedIn icon" class="icon" />
+                            <span class="mt-1">LinkedIn</span>
+                        </a>
+                        <a href="https://github.com/Harshalrana06" target="_blank" rel="noopener noreferrer" title="Harshal Rana on GitHub" class="hover:scale-110 transition-transform flex items-center flex-col text-gray-300 text-sm sm:text-base">
+                            <img src="https://img.icons8.com/ios-glyphs/50/84cc16/github.png" alt="GitHub icon" class="icon" />
+                            <span class="mt-1">GitHub</span>
+                        </a>
+                    </div>
+
+                    <h3 class="text-2xl sm:text-3xl font-semibold text-lime-300 mt-8">My Location</h3>
+
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15065.109887754378!2d72.78280679883582!3d19.39009132225432!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7afc7c10b42f1%3A0x6b8d27a4b6c37466!2sVirar%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                        class="w-full h-64 rounded-md border border-lime-300"
+                        title="Harshal Rana's Location on Map"
+                        loading="lazy"
+                        allowfullscreen=""
+                        referrerpolicy="no-referrer-when-downgrade"
+                    ></iframe>
+                </div>
+            </div>
+        </section>
+
+        <section id="quote-of-the-day" class="text-center" data-aos="fade-up">
+            <h2 class="text-2xl sm:text-3xl font-semibold text-lime-400 section-title mb-4">Quote of the Day</h2>
+            <p id="quote-text" class="text-lg text-gray-200 animate-pulse max-w-2xl mx-auto">Loading...</p>
+        </section>
+    </main>
+
+    <footer class="text-center py-4 bg-black bg-opacity-70 text-gray-400 text-sm sm:text-base">
+        <p>© 2025 Harshal Rana. All rights reserved.</p>
+    </footer>
+
+    <button id="scroll-top">↑</button>
+
+    <div id="cookie-consent-modal" class="modal modal-bottom sm:modal-middle" role="dialog">
+        <div class="modal-box bg-gray-800 text-white shadow-xl">
+            <h3 class="font-bold text-lg text-lime-400">We Use Cookies!</h3>
+            <p class="py-4 text-gray-300">This website uses cookies to ensure you get the best experience on our website. By clicking "Accept All", you consent to the use of all cookies.</p>
+            <div class="modal-action">
+                <button id="accept-cookies-btn" class="btn btn-success">Accept All</button>
+                <button id="decline-cookies-btn" class="btn btn-ghost">Decline</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS library for animations
+        AOS.init();
+
+        // Scroll-to-top button logic
+        const scrollTopBtn = document.getElementById("scroll-top");
+        window.onscroll = () => scrollTopBtn.style.display = window.scrollY > 300 ? "block" : "none";
+        scrollTopBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Theme Toggle (Light/Dark Mode)
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        function setTheme(theme) {
+            if (theme === 'light') {
+                body.classList.add('light-mode');
+                themeToggleBtn.innerHTML = '☀ Light'; // Sun icon for light mode
+            } else {
+                body.classList.remove('light-mode');
+                themeToggleBtn.innerHTML = '🌙 Dark'; // Moon icon for dark mode
+            }
+            localStorage.setItem('theme', theme);
+        }
+
+        // Set initial theme based on localStorage or system preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme);
+        } else {
+            // Check user's system preference for initial theme
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+                setTheme('light');
+            } else {
+                setTheme('dark');
+            }
+        }
+
+        // Add event listener for theme toggle button
+        themeToggleBtn.addEventListener('click', () => {
+            if (body.classList.contains('light-mode')) {
+                setTheme('dark');
+            } else {
+                setTheme('light');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuToggleBtn = document.getElementById('menu-toggle');
+
+        menuToggleBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when a link is clicked
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Store Last Visited Section in LocalStorage (only when a navigation link is clicked)
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function () {
+                const targetId = this.getAttribute('href');
+                if (targetId && targetId !== '#') {
+                    localStorage.setItem('lastVisitedSection', targetId);
+                }
+            });
+        });
+
+        
+
+        // Fetch Quote of the Day from ZenQuotes API
+        fetch('https://zenquotes.io/api/random')
+            .then(res => res.json())
+            .then(data => {
+                const quote = data[0];
+                document.getElementById('quote-text').textContent = `"${quote.q}" — ${quote.a}`;
+            })
+            .catch(() => {
+                document.getElementById('quote-text').textContent = "The only way to do great work is to love what you do. — Steve Jobs"; // Fallback quote
+            });
+
+        // Cookie Consent Logic
+        const cookieConsentModal = document.getElementById('cookie-consent-modal');
+        const acceptCookiesBtn = document.getElementById('accept-cookies-btn');
+        const declineCookiesBtn = document.getElementById('decline-cookies-btn');
+
+        // Helper function to set a cookie
+        function setCookie(name, value, days) {
+            let expires = "";
+            if (days) {
+                const date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/; SameSite=Lax";
+        }
+
+        // Helper function to get a cookie
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        // Function to show the cookie consent modal
+        function showCookieConsent() {
+            // Only show the modal if consent has not been explicitly given
+            if (getCookie('cookieConsentGiven') !== 'true') {
+                cookieConsentModal.classList.add('modal-open');
+            }
+        }
+
+        function hideCookieConsent() {
+            cookieConsentModal.classList.remove('modal-open');
+        }
+
+        
+        function initGoogleAnalytics() {
+            if (getCookie('cookieConsentGiven') === 'true') {
+                
+                gtag('config', 'G-YOUR_MEASUREMENT_ID');
+                console.log("Google Analytics initialized.");
+            } else {
+                console.log("Google Analytics not initialized (consent not given).");
+            }
+        }
+
+        
+        acceptCookiesBtn.addEventListener('click', () => {
+            setCookie('cookieConsentGiven', 'true', 365); 
+            hideCookieConsent();
+            initGoogleAnalytics(); 
+        });
+
+        
+        declineCookiesBtn.addEventListener('click', () => {
+            setCookie('cookieConsentGiven', 'false', 365); 
+            hideCookieConsent();
+            console.log("Cookies declined. Analytics and non-essential trackers may be disabled.");
+           
+        });
+
+        
+        window.addEventListener('load', () => {
+            showCookieConsent();
+            initGoogleAnalytics(); 
+        });
+
+        
+        document.querySelectorAll('.carousel-nav-btn').forEach(button => {
+            button.addEventListener('click', function(event) {
+                
+                event.preventDefault(); 
+                
+               
+                const targetHash = this.getAttribute('href');
+                
+                
+                history.replaceState(null, null, targetHash);
+                
+                
+                const targetElement = document.querySelector(targetHash);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
