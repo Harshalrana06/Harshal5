@@ -405,7 +405,8 @@
         <nav class="hidden md:flex space-x-6 text-white font-medium">
             <a href="#" class="hover:text-lime-200 transition-colors">Home</a>
             <a href="#products" class="hover:text-lime-200 transition-colors">Products</a>
-            <a href="#about-us" class="hover:text-lime-200 transition-colors">About</a> <button id="view-cart-btn" class="text-white hover:text-lime-200 focus:outline-none">Cart (<span id="cart-count">0</span>)</button>
+            <a href="#about-us" class="hover:text-lime-200 transition-colors">About</a>
+            <a href="#contact-us" class="hover:text-lime-200 transition-colors">Contact</a> <button id="view-cart-btn" class="text-white hover:text-lime-200 focus:outline-none">Cart (<span id="cart-count">0</span>)</button>
         </nav>
         <div class="flex items-center md:hidden">
             <button id="mobile-menu-toggle" class="focus:outline-none mr-4">
@@ -424,7 +425,8 @@
         <nav class="flex flex-col p-4 space-y-2">
             <a href="#" class="block py-2 text-white hover:bg-gray-700 rounded" onclick="closeMobileMenu()">Home</a>
             <a href="#products" class="block py-2 text-white hover:bg-gray-700 rounded" onclick="closeMobileMenu()">Products</a>
-            <a href="#about-us" class="block py-2 text-white hover:bg-gray-700 rounded" onclick="closeMobileMenu()">About</a> </nav>
+            <a href="#about-us" class="block py-2 text-white hover:bg-gray-700 rounded" onclick="closeMobileMenu()">About</a>
+            <a href="#contact-us" class="block py-2 text-white hover:bg-gray-700 rounded" onclick="closeMobileMenu()">Contact</a> </nav>
     </div>
 
     <section class="hero-section py-20 px-6 text-center">
@@ -456,6 +458,43 @@
             <p class="text-lg text-gray-300">
                 Join the StyleSphere community and elevate your wardrobe with our fresh and fashionable designs.
             </p>
+        </div>
+    </section>
+
+    <section id="contact-us" class="container mx-auto py-12 px-6">
+        <h2 class="text-3xl font-bold text-center mb-10 text-lime-400">Contact Us</h2>
+        <div class="bg-gray-800 rounded-lg shadow-md p-8 max-w-3xl mx-auto">
+            <p class="text-lg text-gray-300 mb-6 text-center">
+                Have questions or need assistance? Reach out to us!
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold text-white mb-3">Get in Touch</h3>
+                    <p class="text-gray-300 mb-2"><strong>Email:</strong> support@stylesphere.com</p>
+                    <p class="text-gray-300 mb-2"><strong>Phone:</strong> +91 99999 99999</p>
+                    <p class="text-gray-300"><strong>Address:</strong> 123 Fashion Lane,Mumbai,400001</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-white mb-3">Send us a Message</h3>
+                    <form class="space-y-4">
+                        <div>
+                            <label for="contact-name" class="block text-gray-300 text-sm font-medium mb-1">Your Name</label>
+                            <input type="text" id="contact-name" class="w-full p-2 rounded-md bg-gray-700 border border-gray-600 text-white focus:ring-lime-500 focus:border-lime-500" required>
+                        </div>
+                        <div>
+                            <label for="contact-email" class="block text-gray-300 text-sm font-medium mb-1">Your Email</label>
+                            <input type="email" id="contact-email" class="w-full p-2 rounded-md bg-gray-700 border border-gray-600 text-white focus:ring-lime-500 focus:border-lime-500" required>
+                        </div>
+                        <div>
+                            <label for="contact-message" class="block text-gray-300 text-sm font-medium mb-1">Message</label>
+                            <textarea id="contact-message" rows="4" class="w-full p-2 rounded-md bg-gray-700 border border-gray-600 text-white focus:ring-lime-500 focus:border-lime-500" required></textarea>
+                        </div>
+                        <button type="submit" class="bg-lime-500 text-white font-bold py-3 px-6 rounded-md hover:bg-lime-600 transition duration-300 w-full">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -548,10 +587,10 @@
             { id: 6, name: "Organic Cotton Tee", price: 1599, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9cnsBGx82PfnDrMHD4E8-TtMHyjLySC24mw&s", description: "Eco-friendly and incredibly soft, made from 100% organic cotton. Sustainable fashion choice." },
             { id: 7, name: "V-Neck Comfort Tee", price: 1599, image: "https://m.media-amazon.com/images/I/71fpXkAEdCL._AC_UY1100_.jpg", description: "A comfortable V-neck tee that's perfect for layering or wearing on its own. Relaxed fit." },
             { id: 8, name: "Long Sleeve Basic", price: 1799, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0ZjhLAC9Yac2K1ND0OX9uzsrF1PgHDfPcyw&s", description: "Versatile long sleeve basic tee for cooler weather. Soft and durable fabric." },
-            { id: 9, name: "Heather Grey Tee", price: 1199, image: "https://bananaclub.co.in/cdn/shop/files/HeatherGreyOversizedT-shirt_5.jpg?v=1738821246&width=1000", description: "A stylish heather grey tee, blending comfort with a modern aesthetic. Great for everyday wear." },
-            { id: 10, name: "Pocket Tee", price: 1399, image: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRM8MLW82r6xoef9IGSyxyiFxUV_uPswn4ElOJrR52aZYIqmUftmN7ZyHJVxK6-19lsjD9pb_8AZdVqrNnx3IcA02j3YakQwQhhWkKGESRtlSgAT3rvkUR7", description: "Classic tee with a subtle chest pocket, adding a touch of utility and style. Made from soft cotton." },
-            { id: 11, name: "Tie-Dye Tee", price: 1899, image: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcR48Me9ArvY7E_y-ZkQks01vMAN7_clcs80DdvGpP7pI-vNIN9MUdyhf4uNVRV1zQWQ6a29XW0Ec5CmQ3Z7WVqsRj-7EOVkpflgDN9i6ZzA", description: "Vibrant tie-dye patterns for a bold and unique look. Each tee is one-of-a-kind." },
-            { id: 12, name: "Muscle Fit Tee", price: 1699, image: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQC10J32zcmB89AXEkOMCjR3OKlhTwxwexutITYyvb_lbkiJsS-vG2HNZ9sx8Eglg6yyMSHXkOWWZLUqAhAW-9itK-q2-kCxLx8PEH59LQyhvaj-v2Ub9hsVQ", description: "Designed to accentuate your physique, offering a snug and comfortable fit. Ideal for gym or casual outings." }
+            { id: 9, name: "Heather Grey Tee", price: 1199, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3_b6t_t_x_1_o_Q_y_x_2_x_0_x_8_x_0_x_0&s", description: "A stylish heather grey tee, blending comfort with a modern aesthetic. Great for everyday wear." },
+            { id: 10, name: "Pocket Tee", price: 1399, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6sJ5j8z7F2g_x_1_x_2_x_3_x_4_x_5_x_6&s", description: "Classic tee with a subtle chest pocket, adding a touch of utility and style. Made from soft cotton." },
+            { id: 11, name: "Tie-Dye Tee", price: 1899, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_x_1_x_2_x_3_x_4_x_5_x_6_x_7_x_8_x_9&s", description: "Vibrant tie-dye patterns for a bold and unique look. Each tee is one-of-a-kind." },
+            { id: 12, name: "Muscle Fit Tee", price: 1699, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_x_1_x_2_x_3_x_4_x_5_x_6_x_7_x_8_x_9&s", description: "Designed to accentuate your physique, offering a snug and comfortable fit. Ideal for gym or casual outings." }
         ];
 
         let cart = []; // Stores { productId, quantity, size }
